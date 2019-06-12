@@ -4,12 +4,12 @@ from PIL import Image
 
 class VisTSNE:
     def __init_(self, feat, path_list):
-        self.feat = feat
+        self.feats = feats
         self.path_list = path_list
 
-    def tsne_transform(self, feat):
-        tsne_feat = TSNE(n_components=2, perplexity=40, verbose=1).fit_transform(self.feat)
-        return tsne_feat
+    def tsne_transform(self, feats):
+        tsne_feats = TSNE(n_components=2, perplexity=40, verbose=1).fit_transform(self.feats)
+        return tsne_feats
 
     @staticmethod
     def _norm(feat):
@@ -41,6 +41,7 @@ class VisTSNE:
 
     def vis_tsne(self, feats, img_list, img_size=64, grid=[16, 16], save_path=None):
         assert feats.shape[1] == 2, f'Expect to visualize 2D feature, but get {feats.shape[1]}D feature!'
+        feats = self.tsne_transform(feats)
         feats = VisTSNE._norm(feats)
         w, h = grid[0]*img_size, grid[1]*img_size 
         template = 255 * np.ones((w, h, 3), dtype=np.uint8)
@@ -56,10 +57,3 @@ class VisTSNE:
             tsne_img.save(save_path)
         else:
             return tsne_img
-
-
-
-
-
-        
-    
