@@ -41,7 +41,7 @@ class VisTSNE:
 
     def vis_tsne(self, feats, img_list, img_size=64, grid=[16, 16], save_path=None):
         assert feats.shape[1] == 2, f'Expect to visualize 2D feature, but get {feats.shape[1]}D feature!'
-        feat = VisTSNE._norm(feats)
+        feats = VisTSNE._norm(feats)
         w, h = grid[0]*img_size, grid[1]*img_size 
         template = 255 * np.ones((w, h, 3), dtype=np.uint8)
 
